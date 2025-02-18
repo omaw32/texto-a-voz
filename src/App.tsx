@@ -10,9 +10,29 @@ import {
   CssBaseline,
   useMediaQuery,
   ThemeProvider,
+  Chip,
 } from '@mui/material';
-import { Sun, Moon, Pause, Play } from 'lucide-react';
+import { Sun, Moon, Pause, Play, Eraser } from 'lucide-react';
 import { lightTheme, darkTheme } from './theme';
+
+const suggestions = [
+  'Ok google, Enciende aire acondicionado oficina',
+  'Ok google, Apaga aire acondicionado oficina',
+  'Ok google, Enciende aire acondicionado pieza',
+  'Ok google, Apaga aire acondicionado pieza',
+  'Ok google, Enciende aire acondicionado living',
+  'Ok google, Apaga aire acondicionado living',
+  'Ok google, Enciende tele oficina',
+  'Ok google, Apaga tele oficina',
+  'Ok google, Enciende lampara oficina',
+  'Ok google, Apaga lampara oficina',
+  'Ok google, Enciende luz dormitorio',
+  'Ok google, Apaga luz dormitorio',
+  'Ok google, Enciende luz cocina',
+  'Ok google, Apaga luz cocina',
+  'Ok google, Enciende luz comedor',
+  'Ok google, Apaga luz comedor',
+];
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -56,6 +76,20 @@ function App() {
       setUtterance(null);
     }
   };
+
+  const renderChip = (suggestion: string) => (
+    <Chip
+      sx={{
+        height: 'auto',
+        '& .MuiChip-label': {
+          display: 'block',
+          whiteSpace: 'normal',
+        },
+      }}
+      label={suggestion}
+      onClick={() => setText(suggestion)}
+    />
+  );
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -116,12 +150,31 @@ function App() {
                   Detener
                 </Button>
               )}
+              <Button
+                variant="contained"
+                startIcon={<Eraser />}
+                onClick={() => setText('')}
+                disabled={!text}
+              >
+                {'Limpiar'}
+              </Button>
             </Box>
           </Paper>
 
+          <Paper
+            elevation={3}
+            sx={{ p: 3 }}
+          >
+            <Typography variant="h6" gutterBottom>
+              Sugerencias
+            </Typography>
+            <Typography variant="body1">
+              {suggestions.map(renderChip)}
+            </Typography>
+          </Paper>
           <Paper elevation={3} sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>
-              Instrucciones:
+              Instrucciones
             </Typography>
             <Typography variant="body1">
               1. Ingrese el texto que quiera convertir a voz

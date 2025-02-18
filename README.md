@@ -22,7 +22,7 @@ Una aplicación web moderna y accesible que convierte texto a voz con una interf
 ## Como empezar
 
 1. Clona el repositorio
-2. Instal dependenciAs:
+2. Instala dependencias:
    ```bash
    npm install
    ```
